@@ -1,0 +1,8 @@
+<?xml version="1.0" ?>
+<testsuites disabled="0" errors="0" failures="1" tests="1" time="0.0">
+	<testsuite disabled="0" errors="0" failures="1" name="test_failure" skipped="0" tests="1" time="0">
+		<testcase name="fail-test" classname="fail.test">
+			<failure type="failure" message="Test Failed"/>
+		</testcase>
+	</testsuite>
+</testsuites>

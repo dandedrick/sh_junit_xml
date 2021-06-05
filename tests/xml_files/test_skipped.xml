@@ -1,0 +1,11 @@
+<?xml version="1.0" ?>
+<testsuites disabled="0" errors="0" failures="0" tests="1" time="0.0">
+	<testsuite disabled="0" errors="0" failures="0" name="test_skipped" skipped="1" tests="1" time="0">
+		<testcase name="skipped-test" classname="skipped.test">
+			<skipped type="skipped" message="This test was skipped for some random reason."/>
+			<system-out>This is the stdout for a test.
+We skipped it for some reason.
+</system-out>
+		</testcase>
+	</testsuite>
+</testsuites>
