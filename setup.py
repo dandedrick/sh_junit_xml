@@ -17,10 +17,10 @@ setuptools.setup(
     author='Dan Dedrick',
     author_email='dan.dedrick@gmail.com',
     description='A tool for generating junit output from a shell',
-    install_requires=[junit_xml],
+    install_requires=["junit_xml"],
     long_description=long_description,
     long_description_content_type='text/markdown',
-    packages=[sh_junit_xml],
+    packages=["sh_junit_xml"],
     python_requires='>=3',
     url="https://github.com/dandedrick/python-sh-junit-xml",
     classifiers=[
