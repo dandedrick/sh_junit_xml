@@ -65,6 +65,7 @@ def test_passed():
             with open("tests/xml_files/test_passed.xml", "r") as f:
                 assert xml_output.getvalue() == f.read()
 
+
 def test_passed_file():
     with TemporaryDirectory(prefix="squashfs_tmp_", dir="./") as temp:
         output_file = os.path.join(temp, "passed-test.xml")
