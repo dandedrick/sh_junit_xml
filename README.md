@@ -1,4 +1,7 @@
 # sh_junit_xml
+[![Build Status](https://github.com/dandedrick/sh_junit_xml/actions/workflows/run-tests.yaml/badge.svg?branch=master)](https://github.com/dandedrick/sh_junit_xml/actions)
+[![PyPI version](https://badge.fury.io/py/sh-junit-xml.svg)](https://badge.fury.io/py/sh-junit-xml)
+
 This a simple wrapper around the junit_xml python library to allow for
 generating junit xml files from a shell. The main use case for this is
 generating test results for jenkins from shell scripts.
