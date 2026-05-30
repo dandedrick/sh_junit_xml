@@ -1,12 +1,14 @@
 #!/usr/bin/env python3
-import junit_xml
 import os
-import sh_junit_xml
 import sys
 from inspect import signature
-from unittest.mock import patch
 from io import StringIO
 from tempfile import TemporaryDirectory
+from unittest.mock import patch
+
+import junit_xml
+
+import sh_junit_xml
 
 
 def test_all_test_case_args():

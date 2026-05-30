@@ -1,7 +1,8 @@
 #!/usr/bin/env python3
-from inspect import signature
 from argparse import ArgumentParser
-from junit_xml import TestSuite, TestCase, to_xml_report_string
+from inspect import signature
+
+from junit_xml import TestCase, TestSuite, to_xml_report_string
 
 
 def main():
