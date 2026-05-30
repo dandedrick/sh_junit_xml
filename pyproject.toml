@@ -1,0 +1,51 @@
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[project]
+name = "sh_junit_xml"
+version = "1.1.0"
+description = "A tool for generating junit output from a shell"
+readme = "README.md"
+authors = [
+    {name = "Dan Dedrick", email = "dan.dedrick@gmail.com"},
+]
+maintainers = [
+    {name = "Dan Dedrick", email = "dan.dedrick@gmail.com"},
+]
+dependencies = [
+    "junit_xml",
+]
+license = {text = "MIT"}
+classifiers = [
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: POSIX :: Linux",
+    "Topic :: Utilities",
+    "Programming Language :: Python :: 3",
+]
+
+[project.optional-dependencies]
+test = [
+    "flake8==7.3.0",
+    "flake8-isort==7.0.0",
+    "iniconfig==2.3.0",
+    "isort==8.0.1",
+    "junit-xml==1.9",
+    "mccabe==0.7.0",
+    "packaging==26.2",
+    "pluggy==1.6.0",
+    "pycodestyle==2.14.0",
+    "pyflakes==3.4.0",
+    "Pygments==2.20.0",
+    "pytest==9.0.3",
+    "six==1.17.0",
+]
+
+[project.scripts]
+sh_junit_xml = "sh_junit_xml:main"
+
+[tool.pytest]
+minversion = "9.0"
+testpaths = [
+    "tests",
+]
