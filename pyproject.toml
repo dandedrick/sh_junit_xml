@@ -4,7 +4,7 @@ build-backend = "hatchling.build"
 
 [project]
 name = "sh_junit_xml"
-version = "1.1.0"
+version = "1.1.1"
 description = "A tool for generating junit output from a shell"
 readme = "README.md"
 authors = [
@@ -23,6 +23,9 @@ classifiers = [
     "Topic :: Utilities",
     "Programming Language :: Python :: 3",
 ]
+
+[project.urls]
+Homepage = "https://github.com/dandedrick/sh_junit_xml"
 
 [project.optional-dependencies]
 test = [
