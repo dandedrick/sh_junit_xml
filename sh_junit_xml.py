@@ -13,7 +13,7 @@ def generated_options_junit(func):
         match arg:
             case "elapsed_sec" | "assertions":
                 kwargs["type"] = float
-        opt = click.option(f"--{arg}")
+        opt = click.option(f"--{arg}", **kwargs)
         func = opt(func)
     return func
 

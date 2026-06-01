@@ -21,7 +21,7 @@ def test_all_test_case_args():
             argv.append(arg)
     runner = CliRunner()
     result = runner.invoke(sh_junit_xml.main, argv)
-    assert result.exit_code == 1
+    assert result.exit_code == 0
 
 
 def test_failure():
