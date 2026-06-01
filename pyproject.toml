@@ -28,7 +28,7 @@ classifiers = [
 [project.urls]
 Homepage = "https://github.com/dandedrick/sh_junit_xml"
 
-[project.optional-dependencies]
+[dependency-groups]
 test = [
     "click==8.4.1",
     "flake8==7.3.0",
