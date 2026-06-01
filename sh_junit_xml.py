@@ -1,30 +1,41 @@
 #!/usr/bin/env python3
-from argparse import ArgumentParser
 from inspect import signature
 
+import click
 from junit_xml import TestCase, TestSuite, to_xml_report_string
 
 
-def main():
-    parser = ArgumentParser(description="Generate junit test output")
-    parser.add_argument('--suite')
-    parser.add_argument('--failure')
-    parser.add_argument('--error')
-    parser.add_argument('--skipped')
-    parser.add_argument('--output')
-
-    # Dynamically add all parameters of the TestCase constructor. This gives us
-    # the most flexibility with the least amount of work. Basic string
-    # arguments will work by default. Other arguments may need special handling
-    # a few have been done here already.
-    test_args = []
+def generated_options_junit(func):
     for arg in signature(TestCase.__init__).parameters:
         if arg == "self":
             continue
-        parser.add_argument(f"--{arg}")
-        test_args.append(arg)
+        kwargs = {}
+        match arg:
+            case "elapsed_sec" | "assertions":
+                kwargs["type"] = float
+        opt = click.option(f"--{arg}")
+        func = opt(func)
+    return func
 
-    args = parser.parse_args()
+
+local_options = {"suite": {"required": True},
+                 "failure": {},
+                 "error": {},
+                 "skipped": {},
+                 "output": {}}
+
+
+def local_options_junit(func):
+    for name, kwargs in local_options.items():
+        func = click.option(f"--{name}", **kwargs)(func)
+    return func
+
+
+@click.command()
+@generated_options_junit
+@local_options_junit
+@click.pass_context
+def main(context, *args, **kwargs):
 
     def arg_check_for_file(value):
         # If we start a string with @ we assume it is a file name and
@@ -38,28 +49,23 @@ def main():
     # arguments. We handle non-string arguments here (not all maybe be
     # handled).
     tc_args = {}
-    for arg in test_args:
-        if arg in args:
-            value = getattr(args, arg)
-            if value:
-                value = arg_check_for_file(value)
-                # The argument expects a number not a string so we have to
-                # convert it here.
-                if arg == "elapsed_sec" or arg == "assertions":
-                    value = float(value)
-
-                tc_args[arg] = value
+    params = context.params
+    for arg, value in params.items():
+        if value is None:
+            continue
+        if arg not in local_options:
+            tc_args[arg] = arg_check_for_file(value)
 
     test_case = TestCase(**tc_args)
-    if args.failure:
-        test_case.add_failure_info(arg_check_for_file(args.failure))
-    if args.error:
-        test_case.add_error_info(arg_check_for_file(args.error))
-    if args.skipped:
-        test_case.add_skipped_info(arg_check_for_file(args.skipped))
-    suite = TestSuite(args.suite, [test_case])
-    if args.output:
-        with open(args.output, "w") as f:
+    if params.get("failure"):
+        test_case.add_failure_info(arg_check_for_file(params["failure"]))
+    if params.get("error"):
+        test_case.add_error_info(arg_check_for_file(params["error"]))
+    if params.get("skipped"):
+        test_case.add_skipped_info(arg_check_for_file(params["skipped"]))
+    suite = TestSuite(params["suite"], [test_case])
+    if params.get("output"):
+        with open(params["output"], "w") as f:
             f.write(to_xml_report_string([suite]))
     else:
         print(to_xml_report_string([suite]), end="")

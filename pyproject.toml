@@ -26,6 +26,7 @@ classifiers = [
 
 [project.optional-dependencies]
 test = [
+    "click==8.4.1",
     "flake8==7.3.0",
     "flake8-isort==7.0.0",
     "iniconfig==2.3.0",
