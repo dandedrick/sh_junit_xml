@@ -14,6 +14,7 @@ maintainers = [
     {name = "Dan Dedrick", email = "dan.dedrick@gmail.com"},
 ]
 dependencies = [
+    "click",
     "junit_xml",
 ]
 license = {text = "MIT"}
