@@ -21,3 +21,6 @@ jobs:
       - name: Run pytest
         run: |
           pytest
+      - name: Run deptry
+        run: |
+          deptry .
