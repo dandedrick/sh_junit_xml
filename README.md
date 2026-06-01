@@ -12,9 +12,14 @@ Install via pip:
 pip install sh_junit_xml
 ```
 
+Install from github:
+```
+pip install https://github.com/dandedrick/sh_junit_xml
+```
+
 Install from source:
 ```
-./setup.py install
+pip install .
 ```
 
 ## Usage
