@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-import os
 from inspect import signature
+from pathlib import Path
 from tempfile import TemporaryDirectory
 
 import junit_xml
@@ -30,8 +30,8 @@ def test_failure():
     runner = CliRunner()
     result = runner.invoke(sh_junit_xml.main, argv)
     assert result.exit_code == 0
-    with open("tests/xml_files/test_failure.xml", "r") as f:
-        assert result.output == f.read()
+    expected_output = Path("tests/xml_files/test_failure.xml").read_text()
+    assert result.output == expected_output
 
 
 def test_error():
@@ -41,8 +41,8 @@ def test_error():
     runner = CliRunner()
     result = runner.invoke(sh_junit_xml.main, argv)
     assert result.exit_code == 0
-    with open("tests/xml_files/test_error.xml", "r") as f:
-        assert result.output == f.read()
+    expected_output = Path("tests/xml_files/test_error.xml").read_text()
+    assert result.output == expected_output
 
 
 def test_skipped():
@@ -54,8 +54,8 @@ def test_skipped():
     result = runner.invoke(sh_junit_xml.main, argv)
     print(result.output)
     assert result.exit_code == 0
-    with open("tests/xml_files/test_skipped.xml", "r") as f:
-        assert result.output == f.read()
+    expected_output = Path("tests/xml_files/test_skipped.xml").read_text()
+    assert result.output == expected_output
 
 
 def test_passed():
@@ -64,19 +64,19 @@ def test_passed():
     runner = CliRunner()
     result = runner.invoke(sh_junit_xml.main, argv)
     assert result.exit_code == 0
-    with open("tests/xml_files/test_passed.xml", "r") as f:
-        assert result.output == f.read()
+    expected_output = Path("tests/xml_files/test_passed.xml").read_text()
+    assert result.output == expected_output
 
 
 def test_passed_file():
     with TemporaryDirectory(prefix="squashfs_tmp_", dir="./") as temp:
-        output_file = os.path.join(temp, "passed-test.xml")
+        output_file = Path(temp) / "passed-test.xml"
         argv = ["--suite", "test_passed", "--name",
                 "passed-test", "--classname", "passed.test", "--output",
-                output_file]
+                str(output_file)]
         runner = CliRunner()
         result = runner.invoke(sh_junit_xml.main, argv)
         assert result.exit_code == 0
-        with open("tests/xml_files/test_passed.xml", "r") as actual:
-            with open(output_file, "r") as expected:
-                assert actual.read() == expected.read()
+        expected_output = Path("tests/xml_files/test_passed.xml").read_text()
+        actual_output = output_file.read_text()
+        assert actual_output == expected_output
