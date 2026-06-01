@@ -69,3 +69,7 @@ def main(context, *args, **kwargs):
             f.write(to_xml_report_string([suite]))
     else:
         print(to_xml_report_string([suite]), end="")
+
+
+if __name__ == "__main__":
+    main()
