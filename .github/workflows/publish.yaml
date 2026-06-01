@@ -1,0 +1,25 @@
+name: Publish Package
+on:
+  release:
+    type: [created]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    environment: release
+    permissions:
+      id-token: write
+    steps:
+      - uses: actions/checkout@v6
+      - name: Setup python ${{ matrix.python-version }}
+        uses: actions/setup-python@v6
+        with:
+          python-version: 3.14
+      - name: Install dependencies
+        run: |
+          pip install build
+      - name: Build
+        run: |
+          python -m build
+      - name: Publish
+        uses: pypa/gh-action-pypi-publish@release/v1
